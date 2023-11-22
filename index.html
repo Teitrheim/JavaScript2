@@ -3,12 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>login - talkActive</title>
+    <script src="./JS/registration_form.js" defer></script>
     <link rel="stylesheet" href="dist/css/index.css" />
   </head>
-  <body>
-    <header class="bg-dark text-primary">
-      <h1>MoHAHAHAHAHA!!!</h1>
-    </header>
+  <body class="bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="../index.html">talkActive</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/profile/index.html">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/feed/index.html">Posts</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Registration form -->
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <h2>Register</h2>
+          <form id="registerForm">
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="regEmail"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control"
+                id="regPassword"
+                placeholder="Password"
+                minlength="8"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-light">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Login Form -->
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <h2>Login</h2>
+          <form id="loginForm">
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="loginEmail"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control"
+                id="loginPassword"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-light">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="text-center mt-5 mb-3">
+      <p>
+        &copy;
+        <?php echo date("Y"); ?>
+        teitrheim. All rights reserved.
+      </p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
