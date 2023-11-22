@@ -3,7 +3,7 @@
     "bootstrap": "^5.3.2"
   },
   "name": "javascript2",
-  "description": "To see the work, change branch to js2!",
+  "description": "talkAktive social media app",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
