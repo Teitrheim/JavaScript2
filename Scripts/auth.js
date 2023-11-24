@@ -1,10 +1,11 @@
 // Here are the functions for registration and login.
-// implement functions to handle user registration and login. Use fetch API to interact with the provided API endpoints. Store the JWT token received upon login in localStorage for subsequent authenticated requests.
 
 // auth.js
 /**
  * Handles user authentication including registration and login
  */
+
+import { API_REGISTER_URL, API_LOGIN_URL } from "./common.js";
 
 /**
  * Registers a new user
@@ -12,8 +13,15 @@
  * @param {string} password User password
  * @returns {Promise<Response>} The fetch promise
  */
-export function register(email, password) {
-  // Implementation of registration using fetch API
+export async function register(email, password) {
+  const response = await fetch(`${API_REGISTER_URL}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+  return response.json();
 }
 
 /**
@@ -22,6 +30,17 @@ export function register(email, password) {
  * @param {string} password User password
  * @returns {Promise<Response>} The fetch promise
  */
-export function login(email, password) {
-  // Implementation of login using fetch API
+export async function login(email, password) {
+  const response = await fetch(`${API_LOGIN_URL}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    localStorage.setItem("jwt", data.token); // Assuming the token is returned in data.token
+  }
+  return data;
 }
