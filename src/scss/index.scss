@@ -1,3 +1,11 @@
 @import "variables";
 
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.error-message {
+  color: $error-color;
+  display: none;
+  margin-top: 10px;
+  font-size: 0.9em;
+  // Additional styling as needed
+}

@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>login - talkActive</title>
-    <script src="./Scripts/index.js" defer type="module"></script>
     <link rel="stylesheet" href="dist/css/index.css" />
   </head>
   <body class="bg-primary">
@@ -41,13 +40,25 @@
         <div class="col-6">
           <h2>Register</h2>
           <form id="registerForm">
+            <div id="registerError" class="error-message"></div>
             <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="regName"
+                placeholder="Name"
+                required
+                pattern="/^\w+$/"
+                title="Username must not contain punctuation symbols apart from underscore (_)"
+              />
               <input
                 type="email"
                 class="form-control"
                 id="regEmail"
                 placeholder="Email"
                 required
+                pattern=".*@(noroff\.no|stud\.noroff\.no)$"
+                title="Only noroff.no emails are allowed to register"
               />
             </div>
             <div class="mb-3">
@@ -102,6 +113,7 @@
         teitrheim. All rights reserved.
       </p>
     </footer>
+    <script src="./Scripts/index.js" type="module"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>

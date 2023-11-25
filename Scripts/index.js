@@ -15,11 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function handleRegister(event) {
   event.preventDefault();
+  const name = document.getElementById("regName").value;
   const email = document.getElementById("regEmail").value;
   const password = document.getElementById("regPassword").value;
 
   try {
-    const response = await register(email, password);
+    const response = await register(name, email, password);
     console.log("Registration successful", response);
     // Handle successful registration
   } catch (error) {
