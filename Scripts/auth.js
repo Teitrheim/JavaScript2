@@ -7,7 +7,7 @@ import { API_REGISTER_URL, API_LOGIN_URL } from "./common.js";
  * @param {string} password User password
  * @returns {Promise<Response>} The fetch promise
  */
-export async function register(email, password) {
+export async function register(name, email, password) {
   const errorElement = document.getElementById("registerError");
 
   if (!name.match(/^\w+$/)) {
@@ -48,10 +48,10 @@ export async function register(email, password) {
     console.log("API Response:", data); // Debug: log the API response
 
     if (response.ok) {
-      console.log("Registration failed", data);
+      console.log("Registration successful", data);
       return { success: false, data }; // Ensure this is the correct data to return
     } else {
-      console.error("Registration successful", data);
+      console.error("Registration failed", data);
       return { success: true, data }; // Return error data or a specific error message
     }
   } catch (error) {
@@ -69,7 +69,10 @@ export async function register(email, password) {
 export async function login(email, password) {
   try {
     // Log the request payload for debugging
-    console.log("Login request payload:", JSON.stringify({ email, password }));
+    console.log(
+      "Login request payload:",
+      JSON.stringify({ name, email, password })
+    );
 
     const response = await fetch(API_LOGIN_URL, {
       method: "POST",
