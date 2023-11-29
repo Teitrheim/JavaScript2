@@ -3,98 +3,89 @@ import { API_REGISTER_URL, API_LOGIN_URL } from "./common.js";
 
 /**
  * Registers a new user
- * @param {string} email User email
- * @param {string} password User password
- * @returns {Promise<Response>} The fetch promise
+ * @param {string} name User's name
+ * @param {string} email User's email
+ * @param {string} password User's password
+ * @returns {Promise<Object>} The response data
  */
 export async function register(name, email, password) {
-  const errorElement = document.getElementById("registerError");
-
   if (!name.match(/^\w+$/)) {
-    errorElement.textContent =
-      "Username must not contain punctuation symbols apart from underscore (_).";
-    errorElement.style.display = "block";
-    return;
+    throw new Error(
+      "Username must not contain punctuation symbols apart from underscore (_)."
+    );
   }
 
   if (!email.match(/@(noroff\.no|stud\.noroff\.no)$/)) {
-    errorElement.textContent =
-      "Email must be a valid 'stud.noroff.no' or 'noroff.no' address.";
-    errorElement.style.display = "block";
-    return;
+    throw new Error(
+      "Email must be a valid 'stud.noroff.no' or 'noroff.no' address."
+    );
   }
 
   if (password.length < 8) {
-    errorElement.textContent = "Password must be at least 8 characters long.";
-    errorElement.style.display = "block";
-    return;
+    throw new Error("Password must be at least 8 characters long.");
   }
-  try {
-    // Log the request payload for debugging
-    console.log(
-      "Register request payload:",
-      JSON.stringify({ email, password })
-    );
 
+  const requestBody = JSON.stringify({ name, email, password });
+  console.log("Register request payload:", requestBody); // Payload
+
+  try {
     const response = await fetch(API_REGISTER_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: requestBody,
     });
+
     const data = await response.json();
 
-    console.log("API Response:", data); // Debug: log the API response
+    console.log("Register response:", data);
 
     if (response.ok) {
-      console.log("Registration successful", data);
-      return { success: false, data }; // Ensure this is the correct data to return
+      return { success: true, data };
     } else {
-      console.error("Registration failed", data);
-      return { success: true, data }; // Return error data or a specific error message
+      console.error("Registration response data:", data);
+      throw new Error(data.message || "Registration failed");
     }
   } catch (error) {
-    console.error("Register error:", error);
-    // Handle any other errors
+    console.error("Register error:", error); // Log any errors with fetching.
+    throw error; // Re-throwing the error.
   }
 }
 
 /**
  * Logs in a user
- * @param {string} email User email
- * @param {string} password User password
- * @returns {Promise<Response>} The fetch promise
+ * @param {string} email User's email
+ * @param {string} password User's password
+ * @returns {Promise<Object>} The response data
  */
 export async function login(email, password) {
-  try {
-    // Log the request payload for debugging
-    console.log(
-      "Login request payload:",
-      JSON.stringify({ name, email, password })
-    );
+  const requestBody = JSON.stringify({ email, password });
+  console.log("Login request payload:", requestBody); // Log the request payload for debugging
 
+  try {
     const response = await fetch(API_LOGIN_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: requestBody,
     });
+
     const data = await response.json();
+    console.log("Login response:", data);
 
     if (response.ok) {
-      // Store JWT token in localStorage and log the response
-      localStorage.setItem("jwt", data.token);
-      console.log("Login successful:", data);
+      return { success: true, data };
     } else {
-      // Log unsuccessful login attempt
-      console.log("Login failed:", data);
+      console.error("Login response data:", data);
+      throw new Error(
+        data.message ||
+          `Login failed: ${response.status} ${response.statusText}`
+      );
     }
-
-    return data;
   } catch (error) {
-    // Log any errors
-    console.error("Login error:", error);
+    console.error("Login error:", error); // Log any errors
+    throw error; // Re-throwing the error
   }
 }

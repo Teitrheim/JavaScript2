@@ -1,8 +1,3 @@
-// This is the main JS file
-// Wherever possible, use object and array destructuring for cleaner code.
-// Document all functions using JSDocs for clarity and maintainability.
-
-// index.js
 import { register, login } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,6 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", handleLogin);
 });
 
+/**
+ * Handles the registration process.
+ * @param {Event} event - The submit event from the registration form.
+ */
 async function handleRegister(event) {
   event.preventDefault();
   const name = document.getElementById("regName").value;
@@ -22,13 +21,22 @@ async function handleRegister(event) {
   try {
     const response = await register(name, email, password);
     console.log("Registration successful", response);
-    // Handle successful registration
+
+    // If response includes the jwtToken
+    localStorage.setItem("jwtToken", response.jwtToken);
+
+    // Redirect to the feed page or update UI
+    redirectUser("/feed");
   } catch (error) {
     console.error("Registration failed", error);
-    // Handle registration errors
+    displayErrorMessage("registerError", error.message);
   }
 }
 
+/**
+ * Handles the login process.
+ * @param {Event} event - The submit event from the login form.
+ */
 async function handleLogin(event) {
   event.preventDefault();
   const email = document.getElementById("login-email").value;
@@ -37,9 +45,31 @@ async function handleLogin(event) {
   try {
     const response = await login(email, password);
     console.log("Login successful", response);
-    // Handle successful login
+    localStorage.setItem("jwtToken", response.jwtToken);
+    redirectUser("/feed");
   } catch (error) {
-    console.error("Login failed", error);
-    // Handle login errors
+    console.error(error);
+    displayErrorMessage("loginError", error.message);
+  }
+}
+
+/**
+ * Redirects the user to the specified page.
+ * @param {string} page - The path to the page to redirect to.
+ */
+function redirectUser(page) {
+  window.location.href = page;
+}
+
+/**
+ * Displays an error message on the UI.
+ * @param {string} elementId - The ID of the element.
+ * @param {string} message - The error message to display.
+ */
+function displayErrorMessage(elementId, message) {
+  const errorElement = document.getElementById(elementId);
+  if (errorElement) {
+    errorElement.innerText = message;
+    errorElement.style.display = "block";
   }
 }
