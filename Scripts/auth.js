@@ -69,18 +69,18 @@ export async function login(email, password) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: requestBody,
+      body: JSON.stringify({ email, password }),
     });
-
-    const data = await response.json();
-    console.log("Login response:", data);
-
     if (response.ok) {
-      return { success: true, data };
+      const data = await response.json();
+      console.log("Login response data:", data);
+      localStorage.setItem("jwtToken", data.accessToken); // Saving the token in localStorage
+      return data;
     } else {
-      console.error("Login response data:", data);
+      const errorData = await response.json();
+      console.error("Login response data:", errorData);
       throw new Error(
-        data.message ||
+        errorData.message ||
           `Login failed: ${response.status} ${response.statusText}`
       );
     }
@@ -88,4 +88,9 @@ export async function login(email, password) {
     console.error("Login error:", error); // Log any errors
     throw error; // Re-throwing the error
   }
+}
+
+export function logout() {
+  localStorage.removeItem("jwtToken"); // Clear the JWT from localStorage
+  window.location.href = "../"; // Redirect to the login page or home page
 }

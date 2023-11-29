@@ -31,6 +31,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/feed">Posts</a>
           </li>
+          <button id="logout-button" class="btn btn-primary btn-sm ml-auto" >Logout</button>
         </ul>
       </div>
     </nav>
@@ -42,129 +43,13 @@
         </a>
       </div>
     </header>
+    <input type="text" id="filter-input" placeholder="Filter posts">
 
-    <div class="container">
-      <section class="mb-4">
-        <form action="/path_to_server" method="POST" class="mb-3">
-          <textarea
-            class="form-control"
-            placeholder="Share something..."
-            rows="4"
-          ></textarea>
+  <section id="post-feed">
 
-          <button type="submit" class="btn btn-success mt-2">Post</button>
-        </form>
-      </section>
-      <section
-        class="d-flex flex-column flex-sm-row justify-content-between mb-4"
-      >
-        <input
-          type="text"
-          class="form-control mb-2 mb-sm-0 w-100 w-sm-50 me-sm-2"
-          placeholder="Search"
-        />
-        <select title="option" class="form-select w-100 w-sm-25">
-          <option value="latest">Latest</option>
-          <option value="popular">Most Popular</option>
-        </select>
-      </section>
+  </section>
 
-      <section>
-        <article class="mb-4 p-4 bg-white border shadow border rounded">
-          <header class="d-flex justify-content-between mb-2">
-            <div class="d-flex align-items-center">
-              <a
-                href="/profile/index.html"
-                class="text-dark text-decoration-none"
-                ><img
-                  src="/images/boxing-555735_1280.jpg"
-                  alt="User Avatar"
-                  class="rounded-circle mr-2"
-                  width="40"
-                  height="40"
-              /></a>
-              <h2 class="mb-0">winner</h2>
-            </div>
-            <small>teitrheim@gmail.com</small>
-          </header>
-          <p class="mb-2">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            Nulla consequat massa quis enim. Donec pede justo, fringilla vel.
-          </p>
-          <footer class="d-flex justify-content-between">
-            <span>11 likes</span>
-            <span>22 comments</span>
-          </footer>
-        </article>
-      </section>
-      <section>
-        <article class="mb-4 p-4 bg-white border shadow border rounded">
-          <header class="d-flex justify-content-between mb-2">
-            <div class="d-flex align-items-center">
-              <a
-                href="/profile/index.html"
-                class="text-dark text-decoration-none"
-                ><img
-                  src="/images/read1.jpg"
-                  alt="User Avatar"
-                  class="rounded-circle mr-2"
-                  width="40"
-                  height="40"
-              /></a>
 
-              <h2 class="mb-0">reader</h2>
-            </div>
-            <small>teitrheim@gmail.com</small>
-          </header>
-          <p class="mb-2">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            Nulla consequat massa quis enim. Donec pede justo, fringilla vel.
-          </p>
-          <footer class="d-flex justify-content-between">
-            <span>11 likes</span>
-            <span>22 comments</span>
-          </footer>
-        </article>
-      </section>
-      <section>
-        <article class="mb-4 p-4 bg-white border shadow border rounded">
-          <header class="d-flex justify-content-between mb-2">
-            <div class="d-flex align-items-center">
-              <a
-                href="/profile/index.html"
-                class="text-dark text-decoration-none"
-                ><img
-                  src="/images/travel1.jpg"
-                  alt="User Avatar"
-                  class="rounded-circle mr-2"
-                  width="40"
-                  height="40"
-              /></a>
-
-              <h2 class="mb-0">travel</h2>
-            </div>
-            <small>teitrheim@gmail.com</small>
-          </header>
-          <p class="mb-2">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            Nulla consequat massa quis enim. Donec pede justo, fringilla vel.
-          </p>
-          <footer class="d-flex justify-content-between">
-            <span>11 likes</span>
-            <span>22 comments</span>
-          </footer>
-        </article>
-      </section>
-    </div>
     <footer class="text-center mt-5 mb-3">
       <p>
         &copy;
@@ -173,6 +58,7 @@
       </p>
     </main>
     </footer>
+    <script src="../Scripts/feed.js" type="module"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

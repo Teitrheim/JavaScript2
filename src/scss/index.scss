@@ -8,3 +8,8 @@
   margin-top: 10px;
   font-size: 0.9em;
 }
+
+#logout-button {
+  width: $logout-button-width; // Using the variable from _variables.scss
+  // Add more custom styles if needed
+}

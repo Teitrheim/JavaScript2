@@ -23,9 +23,9 @@ async function handleRegister(event) {
     console.log("Registration successful", response);
 
     // If response includes the jwtToken
-    localStorage.setItem("jwtToken", response.jwtToken);
+    localStorage.setItem("jwtToken", response.accessToken);
 
-    // Redirect to the feed page or update UI
+    // Redirect to the feed page
     redirectUser("/feed");
   } catch (error) {
     console.error("Registration failed", error);
@@ -45,7 +45,7 @@ async function handleLogin(event) {
   try {
     const response = await login(email, password);
     console.log("Login successful", response);
-    localStorage.setItem("jwtToken", response.jwtToken);
+    localStorage.setItem("jwtToken", response.accessToken);
     redirectUser("/feed");
   } catch (error) {
     console.error(error);
@@ -55,14 +55,14 @@ async function handleLogin(event) {
 
 /**
  * Redirects the user to the specified page.
- * @param {string} page - The path to the page to redirect to.
+ * @param {string} page
  */
 function redirectUser(page) {
   window.location.href = page;
 }
 
 /**
- * Displays an error message on the UI.
+ * Displays an error message.
  * @param {string} elementId - The ID of the element.
  * @param {string} message - The error message to display.
  */
