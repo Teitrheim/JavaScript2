@@ -24,13 +24,17 @@ function displayPosts(posts) {
   postFeed.innerHTML = "";
 
   posts.forEach((post) => {
-    const postElement = document.createElement("div");
-    postElement.className = "post";
-    postElement.innerHTML = `
-      <h3>${post.title}</h3>
-      <p>${post.body}</p>
-      <hr>
-    `;
-    postFeed.appendChild(postElement);
+    // Check if post data is valid before creating the element
+    if (post && post.title && post.body) {
+      const postElement = document.createElement("div");
+      postElement.className = "card mb-3";
+      postElement.innerHTML = `
+        <div class="card-body">
+          <h5 class="card-title">${post.title}</h5>
+          <p class="card-text">${post.body}</p>
+        </div>
+      `;
+      postFeed.appendChild(postElement);
+    }
   });
 }
