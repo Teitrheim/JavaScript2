@@ -11893,4 +11893,12 @@ textarea.form-control-lg {
   color: #666;
 }
 
+.card a {
+  color: inherit; /* Ensures text color is inherited and not the default blue of links */
+}
+
+.card a:hover {
+  color: inherit; /* Optional: Change color on hover if desired */
+}
+
 /*# sourceMappingURL=index.css.map */
