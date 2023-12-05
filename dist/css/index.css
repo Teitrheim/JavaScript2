@@ -11894,11 +11894,11 @@ textarea.form-control-lg {
 }
 
 .card a {
-  color: inherit; /* Ensures text color is inherited and not the default blue of links */
+  color: inherit;
 }
 
 .card a:hover {
-  color: inherit; /* Optional: Change color on hover if desired */
+  color: inherit;
 }
 
 /*# sourceMappingURL=index.css.map */

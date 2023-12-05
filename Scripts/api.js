@@ -22,3 +22,25 @@ export async function fetchPosts() {
     throw error;
   }
 }
+
+export async function fetchPostById(postId) {
+  const token = localStorage.getItem("jwtToken");
+  try {
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch post: " + response.statusText);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching post by ID:", error);
+    throw error;
+  }
+}

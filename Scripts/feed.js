@@ -42,53 +42,28 @@ function displayPosts(posts) {
         ? `<img src="${post.media}" class="card-img-top">`
         : "";
       postElement.innerHTML = `
+      <div class="card-body" onclick="redirectToPost('${post.id}')" style="cursor: pointer;">
+        <h5 class="card-title">${post.title}</h5>
+        <p class="card-text">${post.body}</p>
         ${mediaHtml}
-        <div class="card-body" onclick="location.href='/feed?postId=${post.id}'" style="cursor: pointer;">
-          <h5 class="card-title">${post.title}</h5>
-          <p class="card-text">${post.body}</p>
-        </div>
-      `;
+      </div>
+    `;
+      postElement.onclick = () => {
+        window.location.href = `/singlePost/post.html?postId=${post.id}`;
+      };
       postFeed.appendChild(postElement);
     }
   });
 }
 
-async function fetchPostById(postId) {
-  const token = localStorage.getItem("jwtToken");
-  try {
-    const response = await fetch(
-      `https://api.noroff.dev/api/v1/social/posts/${postId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch post: " + response.statusText);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching post by ID:", error);
-    throw error;
-  }
-}
-
 function displayPost(post) {
   const postFeed = document.getElementById("post-feed");
-  let mediaHtml = post.media
-    ? `<img src="${post.media}" class="card-img-top">`
-    : "";
   postFeed.innerHTML = `
-    ${mediaHtml}
     <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title">${post.title}</h5>
         <p class="card-text">${post.body}</p>
+        ${post.media ? `<img src="${post.media}" class="card-img-top">` : ""}
       </div>
     </div>
   `;
