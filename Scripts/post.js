@@ -68,6 +68,10 @@ function updateLikesDislikes() {
   const likesElement = document.querySelector(".likes");
   const dislikesElement = document.querySelector(".dislikes");
 
-  likesElement.textContent = `Likes: ${likes}`;
-  dislikesElement.textContent = `Dislikes: ${dislikes}`;
+  if (likesElement && dislikesElement) {
+    likesElement.textContent = `Likes: ${likes}`;
+    dislikesElement.textContent = `Dislikes: ${dislikes}`;
+  } else {
+    console.error("Like/Dislike elements not found");
+  }
 }
