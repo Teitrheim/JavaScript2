@@ -37,8 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
           displayPosts(filteredPosts);
         });
-      } else {
-        console.error("Filter input element not found.");
       }
       displayPosts(posts);
     } catch (error) {
