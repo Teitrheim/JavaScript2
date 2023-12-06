@@ -18,19 +18,27 @@ async function displaySinglePost() {
 function renderPost(post) {
   const container = document.getElementById("single-post-container");
   container.classList.add("container", "mt-4");
-
   container.innerHTML = "";
 
   const postContent = document.createElement("div");
   postContent.className = "card";
+
+  let authorHtml = "";
+  if (post.author && post.author.avatar) {
+    authorHtml = `<img src="${post.author.avatar}" class="author-avatar" alt="Author's Avatar">`;
+  } else if (post.author) {
+    authorHtml = `<p class="author-name">${post.author.name}</p>`;
+  }
+
+  let mediaHtml = post.media
+    ? `<img src="${post.media}" class="img-fluid" alt="Post Image">`
+    : "";
+
   postContent.innerHTML = `
     <div class="card-body">
+      ${authorHtml}
       <h5 class="card-title">${post.title}</h5>
-      ${
-        post.media
-          ? `<img src="${post.media}" class="img-fluid" alt="Post Image">`
-          : ""
-      }
+      ${mediaHtml}
       <p class="card-text mt-3">${post.body}</p>
     </div>
   `;

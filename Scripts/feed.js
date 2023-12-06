@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       console.log("Fetching all posts");
       const posts = await fetchPosts();
+      console.log(posts);
 
       // Add event listener for filter input
       const filterInput = document.getElementById("filter-input");
-
       if (filterInput) {
         filterInput.addEventListener("input", () => {
           const filterText = filterInput.value.toLowerCase();
@@ -52,22 +52,33 @@ function displayPosts(posts) {
   postFeed.innerHTML = "";
 
   posts.forEach((post) => {
-    if (post && post.title && post.body) {
+    if (post && post.title && (post.body || post.media)) {
       const postElement = document.createElement("div");
       postElement.className = "card mb-3";
+
       let mediaHtml = post.media
         ? `<img src="${post.media}" class="card-img-top">`
         : "";
+      let authorHtml =
+        post.author && post.author.avatar
+          ? `<img src="${post.author.avatar}" class="author-avatar">`
+          : "";
+
       postElement.innerHTML = `
-      <div class="card-body" onclick="redirectToPost('${post.id}')" style="cursor: pointer;">
-        <h5 class="card-title">${post.title}</h5>
-        <p class="card-text">${post.body}</p>
-        ${mediaHtml}
-      </div>
-    `;
+        <div class="card-body" onclick="redirectToPost('${
+          post.id
+        }')" style="cursor: pointer;">
+          <h5 class="card-title">${post.title}</h5>
+          ${authorHtml}
+          <p class="card-text">${post.body ? post.body : ""}</p>
+          ${mediaHtml}
+        </div>
+      `;
+
       postElement.onclick = () => {
         window.location.href = `/singlePost/post.html?postId=${post.id}`;
       };
+
       postFeed.appendChild(postElement);
     }
   });
