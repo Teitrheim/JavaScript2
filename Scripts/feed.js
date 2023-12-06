@@ -23,6 +23,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       console.log("Fetching all posts");
       const posts = await fetchPosts();
+
+      // Add event listener for filter input
+      const filterInput = document.getElementById("filter-input");
+
+      if (filterInput) {
+        filterInput.addEventListener("input", () => {
+          const filterText = filterInput.value.toLowerCase();
+          const filteredPosts = posts.filter((post) => {
+            const title = post.title ? post.title.toLowerCase() : "";
+            const body = post.body ? post.body.toLowerCase() : "";
+            return title.includes(filterText) || body.includes(filterText);
+          });
+          displayPosts(filteredPosts);
+        });
+      } else {
+        console.error("Filter input element not found.");
+      }
       displayPosts(posts);
     } catch (error) {
       console.error("Error while fetching posts:", error);
