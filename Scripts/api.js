@@ -44,3 +44,32 @@ export async function fetchPostById(postId) {
     throw error;
   }
 }
+
+export async function createPost(title, body, media) {
+  const token = localStorage.getItem("jwtToken");
+  const payload = {
+    title,
+    body,
+    media, // Only include this if your API supports it
+  };
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/social/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create post: " + response.statusText);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+}

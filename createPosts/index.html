@@ -40,22 +40,16 @@
         </a>
       </div>
     </header>
-
-
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <input type="text" id="filter-input" class="form-control ml-3" placeholder="Filter posts">
-        </div>
-      </div>
+    <div class="container mt-4">
+      <form id="create-post-form">
+        <input type="text" id="new-post-title" class="form-control mb-2" placeholder="Post Title" required>
+        <textarea id="new-post-body" class="form-control mb-2" placeholder="Post Content" required></textarea>
+        <input type="text" id="new-post-media" class="form-control mb-2" placeholder="Media URL (optional)">
+        <button type="submit" class="btn btn-primary">Create Post</button>
+      </form>
     </div>
-  <section id="post-feed">
-  </section>
-  <footer class="footer mt-auto py-3 bg-light fixed-bottom">
-    <div class="container">
-      <span class="text-muted">Logged in as <a href="/profile/">username</a>. Want to <a href="/createPosts/">create a post</a>?</span>
-    </footer>
-  </div>
+
+
     <script src="../Scripts/feed.js" type="module"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

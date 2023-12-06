@@ -11915,4 +11915,45 @@ textarea.form-control-lg {
   margin-top: 20px;
 }
 
+/* Sticky Footer Styles */
+.sticky-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust transparency as needed */
+  color: black;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+/* Container within the footer */
+.sticky-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Username link style */
+#username {
+  color: black; /* or any other color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Link style for the New Post button */
+.sticky-footer .btn-primary {
+  color: white; /* Adjust button text color as needed */
+  background-color: #007bff; /* Adjust button background color as needed */
+  border-color: #007bff; /* Adjust button border color as needed */
+}
+
+/* Additional media query for responsiveness if needed */
+@media (max-width: 576px) {
+  .sticky-footer .container {
+    flex-direction: column;
+  }
+}
+
 /*# sourceMappingURL=index.css.map */
