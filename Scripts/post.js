@@ -1,6 +1,7 @@
 // post.js
 import { fetchPostById } from "./api.js";
-import { API_BASE_URL, API_COMMENTS_URL } from "./common.js";
+import { API_POSTS_URL } from "./common.js";
+import { API_BASE_URL } from "./common.js";
 
 async function displaySinglePost() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -41,7 +42,62 @@ function renderPost(post) {
       ${mediaHtml}
       <p class="card-text mt-3">${post.body}</p>
     </div>
+    <!-- Add the delete button here with data-post-id attribute -->
+    <button class="btn btn-danger delete-button" data-post-id="${post.id}">
+      <i class="fas fa-trash"></i> Delete
+    </button>
+  </div>
   `;
+
+  // Event listener for delete buttons
+  document.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("delete-button")) {
+      const postId = event.target.dataset.postId;
+
+      // DELETE request to the API
+      try {
+        const deletedPostResponse = await deletePost(postId);
+        if (deletedPostResponse && deletedPostResponse.status === 204) {
+          removePostFromUI(postId);
+        } else {
+          console.error(
+            "Failed to delete post:",
+            deletedPostResponse.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
+    }
+  });
+
+  async function deletePost(postId) {
+    const token = localStorage.getItem("jwtToken");
+    try {
+      const response = await fetch(`${API_POSTS_URL}/${postId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 401) {
+        // Unauthorized
+        alert("You are not authorized to delete this post.");
+        return null;
+      }
+
+      return response;
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  }
+
+  function removePostFromUI(postId) {
+    const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+    if (postElement) {
+      postElement.remove();
+    }
+  }
   container.appendChild(postContent);
 
   const likeDislikeSection = document.createElement("div");
@@ -113,17 +169,14 @@ document.addEventListener("DOMContentLoaded", () => {
 async function submitComment(postId, commentBody) {
   const token = localStorage.getItem("jwtToken");
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/social/posts/${postId}/comment`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ body: commentBody }),
-      }
-    );
+    const response = await fetch(`${API_COMMENTS_URL}${postId}/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ body: commentBody }),
+    });
 
     if (!response.ok) {
       throw new Error("Failed to submit comment: " + response.statusText);

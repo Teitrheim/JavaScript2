@@ -1,4 +1,4 @@
-import { fetchPosts, createPost } from "./api.js";
+import { fetchPosts } from "./api.js";
 import { logout } from "./auth.js";
 
 document.getElementById("logout-button").addEventListener("click", () => {
@@ -43,15 +43,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error while fetching posts:", error);
     }
   }
-
-  // Event listener for creating a new post
-  const createPostForm = document.getElementById("create-post-form");
-  if (createPostForm) {
-    createPostForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      await createNewPost();
-    });
-  }
 });
 
 function displayPosts(posts) {
@@ -79,7 +70,6 @@ function displayPosts(posts) {
           ${authorHtml}
           <p class="card-text">${post.body ? post.body : ""}</p>
           ${mediaHtml}
-        </div>
       `;
 
       postElement.onclick = () => {
@@ -99,36 +89,5 @@ function displayPost(post) {
         <h5 class="card-title">${post.title}</h5>
         <p class="card-text">${post.body}</p>
         ${post.media ? `<img src="${post.media}" class="card-img-top">` : ""}
-      </div>
-    </div>
   `;
 }
-
-// Function to create a new post
-async function createNewPost() {
-  const titleInput = document.getElementById("new-post-title");
-  const bodyInput = document.getElementById("new-post-body");
-  const mediaInput = document.getElementById("new-post-media");
-
-  const title = titleInput ? titleInput.value : "";
-  const body = bodyInput ? bodyInput.value : "";
-  const media = mediaInput ? mediaInput.value : "";
-
-  try {
-    const newPost = await createPost(title, body, media);
-    console.log("New post created:", newPost);
-  } catch (error) {
-    console.error("Error creating new post:", error);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("username").addEventListener("click", function () {
-    window.location.href = "/profile";
-  });
-
-  // Create post click event
-  document.querySelector(".btn-primary").addEventListener("click", function () {
-    window.location.href = "/createPosts";
-  });
-});
