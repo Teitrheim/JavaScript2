@@ -35,23 +35,62 @@ function renderPost(post) {
     : "";
 
   postContent.innerHTML = `
-    <div class="card-body">
-      ${authorHtml}
-      <h5 class="card-title">${post.title}</h5>
-      ${mediaHtml}
-      <p class="card-text mt-3">${post.body}</p>
-    </div>
-    <button class="btn btn-danger delete-button" data-post-id="${post.id}">
-      <i class="fas fa-trash"></i> Delete
-    </button>
+  <div class="card-body">
+  ${authorHtml}
+  <h5 class="card-title">${post.title}</h5>
+  ${mediaHtml}
+  <p class="card-text mt-3">${post.body}</p>
+</div>
+<button class="btn btn-danger btn-sm delete-button" data-post-id="${post.id}">
+<i class="fa-solid fa-trash-can"></i> Delete
+</button>
   `;
   container.appendChild(postContent);
 
   attachDeleteListener();
-
+  // Add Like and Dislike buttons
+  addLikeDislikeSection(container);
   // Comment Section
   createCommentSection(container, post.id);
 }
+
+// Function to add like and dislike section
+function addLikeDislikeSection(container) {
+  let likes = 0;
+  let dislikes = 0;
+
+  const likeDislikeSection = document.createElement("div");
+  likeDislikeSection.className = "like-dislike-buttons my-3";
+  likeDislikeSection.innerHTML = `
+      <button class="btn btn-success like-button">Like</button>
+      <button class="btn btn-danger dislike-button">Dislike</button>
+      <span class="likes">Likes: ${likes}</span>
+      <span class="dislikes">Dislikes: ${dislikes}</span>
+  `;
+  container.appendChild(likeDislikeSection);
+
+  const likeButton = likeDislikeSection.querySelector(".like-button");
+  const dislikeButton = likeDislikeSection.querySelector(".dislike-button");
+  const likesElement = likeDislikeSection.querySelector(".likes");
+  const dislikesElement = likeDislikeSection.querySelector(".dislikes");
+
+  likeButton.addEventListener("click", () => {
+    likes++;
+    updateLikesDislikes(likesElement, dislikesElement, likes, dislikes);
+  });
+
+  dislikeButton.addEventListener("click", () => {
+    dislikes++;
+    updateLikesDislikes(likesElement, dislikesElement, likes, dislikes);
+  });
+}
+
+// Function to update likes and dislikes counts
+function updateLikesDislikes(likesElement, dislikesElement, likes, dislikes) {
+  likesElement.textContent = `Likes: ${likes}`;
+  dislikesElement.textContent = `Dislikes: ${dislikes}`;
+}
+
 // Listener for the delete button
 function attachDeleteListener() {
   const deleteButton = document.querySelector(".delete-button");
@@ -60,14 +99,12 @@ function attachDeleteListener() {
       const postId = event.target.dataset.postId;
       try {
         const deletedPostResponse = await deletePost(postId);
-        if (deletedPostResponse && deletedPostResponse.status === 204) {
+        if (deletedPostResponse.success) {
           removePostFromUI(postId);
         } else {
           console.error(
             "Failed to delete post:",
-            deletedPostResponse
-              ? deletedPostResponse.statusText
-              : "Unknown error"
+            deletedPostResponse.error || "Unknown error"
           );
         }
       } catch (error) {
@@ -89,23 +126,23 @@ async function deletePost(postId) {
 
     if (response.status === 204) {
       // Successfully deleted
-      return response;
+      return { success: true };
     } else if (response.status === 401) {
       // Unauthorized
       alert("You are not authorized to delete this post.");
-      return null;
+      return { error: "Unauthorized" };
     } else if (response.status === 404) {
       // Not found
       alert("Post not found. It may have already been deleted.");
-      return null;
+      return { error: "Not Found" };
     } else {
       // Other errors
       alert("An error occurred while trying to delete the post.");
-      return null;
+      return { error: "Other Error", status: response.status };
     }
   } catch (error) {
     console.error("Error deleting post:", error);
-    return null; // Return null or an object with a structure that you can handle later
+    return { error: error.message || "Network Error" };
   }
 }
 
