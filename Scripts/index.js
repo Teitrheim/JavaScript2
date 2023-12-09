@@ -1,5 +1,7 @@
 import { register, login } from "./auth.js";
 
+// Registration and login functions
+
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("registerForm");
   const loginForm = document.getElementById("login-form");

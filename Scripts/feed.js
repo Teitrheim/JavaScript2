@@ -1,11 +1,12 @@
 import { fetchPosts } from "./api.js";
 import { logout } from "./auth.js";
 
+// Logout button
 document.getElementById("logout-button").addEventListener("click", () => {
   console.log("Page Loaded");
   logout();
 });
-
+// Displaying posts
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const view = urlParams.get("view");
@@ -25,6 +26,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("Fetching all posts");
       const posts = await fetchPosts();
       console.log(posts);
+
+      // Filtering
 
       const filterInput = document.getElementById("filter-input");
       if (filterInput) {
