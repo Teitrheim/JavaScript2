@@ -2,6 +2,7 @@
 import { fetchPostById } from "./api.js";
 import { API_POSTS_URL, API_BASE_URL } from "./common.js";
 
+// the page for single posts:
 async function displaySinglePost() {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get("postId");
@@ -22,6 +23,18 @@ function renderPost(post) {
 
   const postContent = document.createElement("div");
   postContent.className = "card";
+  // Add Edit button
+  const editButton = document.createElement("button");
+  editButton.textContent = "Edit";
+  editButton.className = "btn btn-primary btn-sm";
+  container.appendChild(editButton);
+
+  editButton.addEventListener("click", () => {
+    // Clear existing content
+    container.innerHTML = "";
+    // Add edit form
+    createEditForm(container, post);
+  });
   // Rendering media and interaction with the delete button
   let authorHtml =
     post.author && post.author.avatar
@@ -152,7 +165,7 @@ function removePostFromUI(postId) {
     postElement.remove();
   }
 }
-
+// Comment section:
 function createCommentSection(container, postId) {
   const commentSection = document.createElement("div");
   commentSection.id = "comment-section";
@@ -219,3 +232,67 @@ function displayComment(comment) {
 }
 
 document.addEventListener("DOMContentLoaded", displaySinglePost);
+
+// Update section:
+
+async function updatePost(postId, updatedData) {
+  const token = localStorage.getItem("jwtToken");
+
+  try {
+    const response = await fetch(`${API_POSTS_URL}/${postId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else if (response.status === 401) {
+      alert("You are not authorized to edit this post.");
+    } else {
+      alert("An error occurred while trying to update the post.");
+    }
+  } catch (error) {
+    console.error("Error updating post:", error);
+  }
+}
+// Edit the post
+function createEditForm(container, post) {
+  const editForm = document.createElement("form");
+  editForm.id = "edit-post-form";
+  editForm.innerHTML = `
+      <input type="text" id="edit-post-title" class="form-control mb-2" value="${
+        post.title
+      }" required>
+      <textarea id="edit-post-body" class="form-control mb-2" required>${
+        post.body
+      }</textarea>
+      <input type="text" id="edit-post-media" class="form-control mb-2" value="${
+        post.media || ""
+      }" placeholder="Media URL (optional)">
+      <button type="submit" class="btn btn-primary">Update Post</button>
+  `;
+  container.appendChild(editForm);
+
+  editForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // Get updated values from the form
+    const updatedTitle = document.getElementById("edit-post-title").value;
+    const updatedBody = document.getElementById("edit-post-body").value;
+    const updatedMedia = document.getElementById("edit-post-media").value;
+
+    // Object with the updated post data
+    const updatedData = {
+      title: updatedTitle,
+      body: updatedBody,
+      media: updatedMedia,
+    };
+
+    // Call the updatePost function
+    await updatePost(post.id, updatedData);
+  });
+}

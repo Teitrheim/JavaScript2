@@ -15,6 +15,9 @@ async function createNewPost() {
   try {
     const newPost = await createPost(title, body, media);
     console.log("New post created:", newPost);
+    titleInput.value = "";
+    bodyInput.value = "";
+    mediaInput.value = "";
   } catch (error) {
     console.error("Error creating new post:", error);
   }
