@@ -28,7 +28,7 @@
             <a class="nav-link" href="../">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
+            <a class="nav-link" href="/feed/">Feed</a>
           </li>
         </ul>
       </div>
@@ -41,6 +41,12 @@
           </a>
         </div>
       </header>
+      <div
+        id="success-message"
+        style="display: none"
+        class="alert alert-success"
+      ></div>
+
       <!--Form -->
       <div class="container mt-4">
         <form id="create-post-form">
@@ -63,12 +69,12 @@
             class="form-control mb-2"
             placeholder="Media URL (optional)"
           />
-          <button type="submit" class="btn btn-primary">Create Post</button>
+          <button type="submit" class="btn btn-success">Create Post</button>
         </form>
       </div>
     </main>
-    <script src="../scripts/form.js" type="module"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../scripts/form.js" type="module"></script>
   </body>
 </html>
