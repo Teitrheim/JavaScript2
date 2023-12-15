@@ -26,15 +26,29 @@ async function handleRegister(event) {
 
     // If response includes the jwtToken
     localStorage.setItem("jwtToken", response.accessToken);
-
-    // Redirect to the feed page
-    redirectUser("/feed");
+    // Display a success message without redirecting
+    displaySuccessMessage("Registration successful. Please login below.");
+    // Clear the form fields
+    document.getElementById("regName").value = "";
+    document.getElementById("regEmail").value = "";
+    document.getElementById("regPassword").value = "";
   } catch (error) {
     console.error("Registration failed", error);
     displayErrorMessage("registerError", error.message);
   }
 }
-
+/**
+ * Displays a success message.
+ * @param {string} message - The success message to display.
+ */
+function displaySuccessMessage(message) {
+  // Assuming you have an element with ID 'registerSuccess' to display success messages
+  const successElement = document.getElementById("registerSuccess");
+  if (successElement) {
+    successElement.innerText = message;
+    successElement.style.display = "block";
+  }
+}
 /**
  * Handles the login process.
  * @param {Event} event - The submit event from the login form.
