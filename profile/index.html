@@ -3,13 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile - talkActive</title>
-    <link rel="stylesheet" href="../dist/css/index.css" />
+    <title>Profile | talkActive</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../dist/index.css" />
   </head>
+
   <body class="bg-primary">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="../index.html">talkActive</a>
-      <button id="logout-button" class="btn btn-primary">Logout</button>
       <button
         class="navbar-toggler"
         type="button"
@@ -24,32 +28,152 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="../">Home</a>
+            <a class="nav-link" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/feed">Feed</a>
+            <a class="nav-link" href="/feed/">Posts</a>
           </li>
         </ul>
       </div>
     </nav>
-    <main>
-      <header class="py-3 mb-4">
-        <div class="container text-center">
-          <a href="/index.html" class="text-dark text-decoration-none">
-            <h1 class="display-4">talkActive</h1>
-          </a>
-        </div>
-      </header>
 
-      <section id="user-posts-section"></section>
-    </main>
-    <!--Interactive footer -->
-  <footer class="footer mt-auto py-3 bg-light fixed-bottom">
-    <div class="container">
-     Do you want to <a href="/createPosts/">create a post</a>?</span>
+    <header class="py-3 mb-4">
+      <div class="container text-center">
+        <a href="/index.html" class="text-dark text-decoration-none">
+          <h1 class="display-4">talkActive</h1>
+        </a>
+      </div>
+    </header>
+
+    <div class="container mt-5">
+      <div class="d-flex justify-content-center">
+        <div class="col-lg-6">
+          <div class="text-center">
+            <img
+              src="/assets/2.selfie_3_11zon.png"
+              class="rounded-circle mb-4"
+              alt="Profile Picture"
+              width="120"
+            />
+            <h3>Teitrheim</h3>
+            <button class="btn btn-outline-light">FOLLOW</button>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+              <div class="col-6 text-center">
+                <h5>Followers</h5>
+                <p class="lead">63</p>
+              </div>
+              <div class="col-6 text-center">
+                <h5>Following</h5>
+                <p class="lead">121</p>
+              </div>
+            </div>
+
+            <div class="mt-4 mb-5 bg-white border shadow border rounded"></div>
+            <h4>Latest posts</h4>
+            <section>
+              <article class="mb-4 p-4 bg-white border shadow border rounded">
+                <header class="d-flex justify-content-between mb-2">
+                  <div class="d-flex align-items-center">
+                    <a
+                      href="/profile/index.html"
+                      class="text-dark text-decoration-none"
+                      ><img
+                        src="/assets/2.selfie_3_11zon.png"
+                        alt="User Avatar"
+                        class="rounded-circle mr-2"
+                        width="40"
+                        height="40"
+                    /></a>
+                    <h2 class="mb-0">teitrheim</h2>
+                  </div>
+                  <small>teitrheim@gmail.com</small>
+                </header>
+                <p class="mb-2">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                  natoque penatibus et magnis dis parturient montes, nascetur
+                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
+                  pede justo, fringilla vel.
+                </p>
+                <footer class="d-flex justify-content-between">
+                  <span>11 likes</span>
+                  <span>22 comments</span>
+                </footer>
+              </article>
+            </section>
+            <section>
+              <article class="mb-4 p-4 bg-white border shadow border rounded">
+                <header class="d-flex justify-content-between mb-2">
+                  <div class="d-flex align-items-center">
+                    <img
+                      src="/assets/2.selfie_3_11zon.png"
+                      alt="User Avatar"
+                      class="rounded-circle mr-2"
+                      width="40"
+                      height="40"
+                    />
+
+                    <h2 class="mb-0">teitrheim</h2>
+                  </div>
+                  <small>teitrheim@gmail.com</small>
+                </header>
+                <p class="mb-2">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                  natoque penatibus et magnis dis parturient montes, nascetur
+                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
+                  pede justo, fringilla vel.
+                </p>
+                <footer class="d-flex justify-content-between">
+                  <span>11 likes</span>
+                  <span>22 comments</span>
+                </footer>
+              </article>
+            </section>
+            <section>
+              <article class="mb-4 p-4 bg-white border shadow border rounded">
+                <header class="d-flex justify-content-between mb-2">
+                  <div class="d-flex align-items-center">
+                    <img
+                      src="/assets/2.selfie_3_11zon.png"
+                      alt="User Avatar"
+                      class="rounded-circle mr-2"
+                      width="40"
+                      height="40"
+                    />
+
+                    <h2 class="mb-0">teitrheim</h2>
+                  </div>
+                  <small>teitrheim@gmail.com</small>
+                </header>
+                <p class="mb-2">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                  natoque penatibus et magnis dis parturient montes, nascetur
+                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
+                  pede justo, fringilla vel.
+                </p>
+                <footer class="d-flex justify-content-between">
+                  <span>11 likes</span>
+                  <span>22 comments</span>
+                </footer>
+              </article>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center mt-5 mb-3">
+      <p>
+        &copy;
+        <?php echo date("Y"); ?>
+        teitrheim. All rights reserved.
+      </p>
     </footer>
-  </div>
-<script src="../scripts/profile.js" type="module"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
