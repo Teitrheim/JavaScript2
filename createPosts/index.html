@@ -44,6 +44,13 @@
       <div id="success-message" class="alert alert-success d-none" role="alert">
         Success message.
       </div>
+      <div
+        id="create-post-error"
+        class="alert alert-danger d-none"
+        role="alert"
+      >
+        Error message.
+      </div>
 
       <!--Form -->
       <div class="container mt-4">
@@ -67,7 +74,9 @@
             class="form-control mb-2"
             placeholder="Media URL (optional)"
           />
-          <button type="submit" class="btn btn-success">Create Post</button>
+          <button id="create-post-button" type="submit" class="btn btn-success">
+            Create Post
+          </button>
         </form>
       </div>
     </main>
