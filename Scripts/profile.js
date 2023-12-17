@@ -84,13 +84,6 @@ function getCurrentUserId() {
   const userIdFromUrl = urlParams.get("userId");
   const userIdFromStorage = localStorage.getItem("currentUserId");
 
-  console.log(
-    "UserID from URL:",
-    userIdFromUrl,
-    "UserID from localStorage:",
-    userIdFromStorage
-  );
-
   return userIdFromUrl || userIdFromStorage;
 }
 document.addEventListener("DOMContentLoaded", displayUserProfile);

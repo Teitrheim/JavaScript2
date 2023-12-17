@@ -26,7 +26,7 @@ export async function register(name, email, password) {
   }
 
   const requestBody = JSON.stringify({ name, email, password });
-  console.log("Register request payload:", requestBody); // Payload
+
 
   try {
     const response = await fetch(API_REGISTER_URL, {
@@ -39,7 +39,7 @@ export async function register(name, email, password) {
 
     const data = await response.json();
 
-    console.log("Register response:", data);
+
 
     if (response.ok) {
       return { success: true, data };
@@ -61,7 +61,7 @@ export async function register(name, email, password) {
  */
 export async function login(email, password) {
   const requestBody = JSON.stringify({ email, password });
-  console.log("Login request payload:", requestBody); // Log the request payload for debugging
+
 
   try {
     const response = await fetch(API_LOGIN_URL, {
@@ -73,7 +73,7 @@ export async function login(email, password) {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log("Login response data:", data);
+    
       localStorage.setItem("jwtToken", data.accessToken); // Saving the token in localStorage
       return data;
     } else {

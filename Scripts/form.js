@@ -7,6 +7,7 @@ async function createNewPost() {
   const titleInput = document.getElementById("new-post-title");
   const bodyInput = document.getElementById("new-post-body");
   const mediaInput = document.getElementById("new-post-media");
+  const successMessage = document.getElementById("success-message");
 
   const title = titleInput ? titleInput.value : "";
   const body = bodyInput ? bodyInput.value : "";
@@ -14,13 +15,32 @@ async function createNewPost() {
 
   try {
     const newPost = await createPost(title, body, media);
-    console.log("New post created:", newPost);
+
+    // Display success message
+    const successMessage = document.getElementById("post-success-message");
+    if (successMessage) {
+      successMessage.classList.remove("d-none"); // Show the success message
+    }
+
+    // Clear input fields
     titleInput.value = "";
     bodyInput.value = "";
     mediaInput.value = "";
   } catch (error) {
     console.error("Error creating new post:", error);
   }
+}
+
+function clearForm() {
+  // Select the form elements by their IDs or any other selector
+  const titleInput = document.getElementById("new-post-title");
+  const bodyInput = document.getElementById("new-post-body");
+  const mediaInput = document.getElementById("new-post-media");
+
+  // Clear their values
+  if (titleInput) titleInput.value = "";
+  if (bodyInput) bodyInput.value = "";
+  if (mediaInput) mediaInput.value = "";
 }
 
 // Event listener for creating a new post when the form is submitted

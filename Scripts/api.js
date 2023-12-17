@@ -2,7 +2,6 @@ import { API_BASE_URL } from "./common.js";
 
 export async function fetchPosts() {
   const token = localStorage.getItem("jwtToken");
-  console.log("Token", token);
   try {
     const response = await fetch(`${API_BASE_URL}/social/posts?_author=true`, {
       method: "GET",
@@ -50,7 +49,7 @@ export async function createPost(title, body, media) {
   const payload = {
     title,
     body,
-    media, // Only include this if your API supports it
+    media,
   };
 
   try {

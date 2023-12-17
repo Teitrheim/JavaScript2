@@ -180,11 +180,12 @@ function createCommentSection(container, postId) {
   `;
   container.appendChild(commentSection);
 
-  attachCommentListener(postId);
+  // Retrieve the form element after appending it to the container
+  const commentForm = document.getElementById("comment-form");
+  attachCommentListener(commentForm, postId);
 }
 
-function attachCommentListener(postId) {
-  const commentForm = document.getElementById("comment-form");
+function attachCommentListener(commentForm, postId) {
   if (commentForm) {
     commentForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -273,7 +274,7 @@ function createEditForm(container, post) {
       <input type="text" id="edit-post-media" class="form-control mb-2" value="${
         post.media || ""
       }" placeholder="Media URL (optional)">
-      <button type="submit" class="btn btn-primary">Update Post</button>
+      <button type="submit" class="btn btn-success">Update Post</button>
   `;
   container.appendChild(editForm);
 

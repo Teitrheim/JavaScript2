@@ -3,7 +3,6 @@ import { logout } from "./auth.js";
 
 // Logout button
 document.getElementById("logout-button").addEventListener("click", () => {
-  console.log("Page Loaded");
   logout();
 });
 // Displaying posts
@@ -11,11 +10,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const view = urlParams.get("view");
   const postId = urlParams.get("postId");
-  console.log("View:", view, "Post ID:", postId);
 
   if (view === "post" && postId) {
     try {
-      console.log("Fetching post by ID:", postId);
       const post = await fetchPostById(postId);
       displayPost(post);
     } catch (error) {
@@ -23,9 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   } else {
     try {
-      console.log("Fetching all posts");
       const posts = await fetchPosts();
-      console.log(posts);
 
       // Filtering
 
@@ -83,7 +78,7 @@ function displayPosts(posts) {
     }
   });
 }
-
+// Displaying posts items and placement.
 function displayPost(post) {
   const postFeed = document.getElementById("post-feed");
   postFeed.innerHTML = `

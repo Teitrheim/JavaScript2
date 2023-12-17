@@ -1,6 +1,6 @@
-import { register, login } from "./auth.js";
+import { register, login, logout } from "./auth.js";
 
-// Registration and login functions
+// Registration and login handling
 
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("registerForm");
@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   registerForm.addEventListener("submit", handleRegister);
   loginForm.addEventListener("submit", handleLogin);
+
+  const logoutButton = document.getElementById("logout-button");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      logout();
+    });
+  }
 });
 
 /**
@@ -22,7 +29,6 @@ async function handleRegister(event) {
 
   try {
     const response = await register(name, email, password);
-    console.log("Registration successful", response);
 
     // If response includes the jwtToken
     localStorage.setItem("jwtToken", response.accessToken);
@@ -42,11 +48,10 @@ async function handleRegister(event) {
  * @param {string} message - The success message to display.
  */
 function displaySuccessMessage(message) {
-  // Assuming you have an element with ID 'registerSuccess' to display success messages
   const successElement = document.getElementById("registerSuccess");
   if (successElement) {
     successElement.innerText = message;
-    successElement.style.display = "block";
+    successElement.classList.remove("d-none");
   }
 }
 /**
@@ -60,7 +65,7 @@ async function handleLogin(event) {
 
   try {
     const response = await login(email, password);
-    console.log("Login successful", response);
+
     localStorage.setItem("jwtToken", response.accessToken);
     redirectUser("/feed");
   } catch (error) {
