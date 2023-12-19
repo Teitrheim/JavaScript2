@@ -1,0 +1,63 @@
+@import "variables";
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.error-message {
+  color: $error-color;
+  display: none;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+#logout-button {
+  width: $logout-button-width;
+}
+
+/* Styles for the post feed */
+#post-feed {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles for each post */
+.card {
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 850px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  color: #666;
+}
+
+.card a {
+  color: inherit;
+}
+
+.card a:hover {
+  color: inherit;
+}
+
+#comment-section {
+  margin-top: 20px;
+}
+
+#comment-text {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 10px;
+}
+
+#comments-container {
+  margin-top: 20px;
+}
