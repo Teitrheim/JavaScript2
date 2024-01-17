@@ -27,7 +27,6 @@ export async function register(name, email, password) {
 
   const requestBody = JSON.stringify({ name, email, password });
 
-
   try {
     const response = await fetch(API_REGISTER_URL, {
       method: "POST",
@@ -38,8 +37,6 @@ export async function register(name, email, password) {
     });
 
     const data = await response.json();
-
-
 
     if (response.ok) {
       return { success: true, data };
@@ -60,9 +57,6 @@ export async function register(name, email, password) {
  * @returns {Promise<Object>} The response data
  */
 export async function login(email, password) {
-  const requestBody = JSON.stringify({ email, password });
-
-
   try {
     const response = await fetch(API_LOGIN_URL, {
       method: "POST",
@@ -73,7 +67,7 @@ export async function login(email, password) {
     });
     if (response.ok) {
       const data = await response.json();
-    
+
       localStorage.setItem("jwtToken", data.accessToken); // Saving the token in localStorage
       return data;
     } else {
