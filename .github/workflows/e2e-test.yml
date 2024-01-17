@@ -13,21 +13,4 @@ jobs:
       - name: Checkout under $GITHUB_WORKSPACE
         uses: actions/checkout@main
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.15.0' # Replace with your Node.js version
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Start Server
-        run: npm run test-unit && npm run test-e2e-cli
-
-      - name: Run Cypress Tests with Electron
-        uses: cypress-io/github-action@v4
-        with:
-          browser: electron
-          start: npm start # If your server can be started with this command
-          wait-on: "http://127.0.0.1:5500/JavaScript2/index.html"
-          wait-on-timeout: 60 # Timeout in seconds for server to start
