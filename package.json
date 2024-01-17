@@ -8,13 +8,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
+    "cypress": "^13.6.2",
+    "eslint": "^8.56.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "i": "^0.3.7",
     "sass": "^1.69.5"
   },
   "scripts": {
     "build": "sass src/scss:dist/css",
     "watch": "sass --watch src/scss:dist/css & live-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test-e2e",
+    "test-e2e": "cypress open"
   },
   "keywords": [],
   "author": "",

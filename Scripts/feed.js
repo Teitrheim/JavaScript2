@@ -1,4 +1,4 @@
-import { fetchPosts } from "./api.js";
+import { fetchPosts, fetchPostById } from "./api.js";
 import { logout } from "./auth.js";
 
 // Logout button

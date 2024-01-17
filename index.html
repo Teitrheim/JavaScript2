@@ -42,6 +42,7 @@
                   type="email"
                   class="form-control mb-3"
                   id="regEmail"
+                  name="email"
                   placeholder="Email"
                   required
                   pattern=".*@(noroff\.no|stud\.noroff\.no)$"
@@ -54,6 +55,7 @@
                   class="form-control"
                   id="regPassword"
                   placeholder="Password"
+                  name="password"
                   minlength="8"
                   required
                 />
@@ -69,6 +71,7 @@
           <div class="col-6">
             <h2>Login</h2>
             <form id="login-form">
+              <div id="loginError" class="error-message d-none"></div>
               <div class="form-group mb-3">
                 <input
                   type="email"
