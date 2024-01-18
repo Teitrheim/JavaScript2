@@ -1,11 +1,23 @@
-// login.test.js
-const { describe, it, expect } = require("jest");
+import fetchMock from "jest-fetch-mock";
+import { handleLogin } from "./index";
 
-const jest = require("jest");
+fetchMock.enableMocks();
 
-const { handleLogin, login, displayErrorMessage } = require("./auth/login");
+const { describe, it, expect, afterEach } = require("@jest/globals");
+
+jest.mock("./index.js", () => ({
+  ...jest.requireActual("./index.js"), // Import actual module contents
+  redirectUser: jest.fn(), // Create a mock function for redirectUser
+  displayErrorMessage: jest.fn(), // Create a mock function for displayErrorMessage
+}));
+
+const { login } = require("./index");
 
 describe("handleLogin", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+    fetchMock.resetMocks();
+  });
   it("should prevent default form submission and call login function", async () => {
     const emailInput = document.createElement("input");
     emailInput.id = "login-email";
@@ -26,13 +38,17 @@ describe("handleLogin", () => {
       target: form,
     };
 
-    // Mock the login function
-    jest.spyOn(global, "fetch").mockResolvedValue({
+    // Mock the login function using fetchMock
+    fetchMock.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue({ accessToken: "your-token" }),
     });
 
-    // Mock the redirectUser function
-    const redirectUserMock = jest.spyOn(window.location, "href", "set");
+    // Mock the redirectUser and displayErrorMessage functions
+    const redirectUserMock = jest.fn();
+    const displayErrorMessageMock = jest.fn();
+
+    redirectUser.mockImplementation(redirectUserMock);
+    displayErrorMessage.mockImplementation(displayErrorMessageMock);
 
     await handleLogin(event);
 
@@ -45,7 +61,7 @@ describe("handleLogin", () => {
     // Check if localStorage was updated
     expect(localStorage.setItem).toHaveBeenCalledWith("jwtToken", "your-token");
 
-    // Check if redirectUser was called with the correct page
+    // Check if redirectUser was called with the correct arguments
     expect(redirectUserMock).toHaveBeenCalledWith("/feed");
 
     // Reset mocks
@@ -72,16 +88,13 @@ describe("handleLogin", () => {
       target: form,
     };
 
-    // Mock the login function to throw an error for invalid credentials
-    jest
-      .spyOn(global, "fetch")
-      .mockRejectedValue(new Error("Invalid credentials"));
+    // Mock the login function to throw an error for invalid credentials using fetchMock
+    fetchMock.mockRejectedValueOnce(new Error("Invalid credentials"));
 
     // Mock the displayErrorMessage function
-    const displayErrorMessageMock = jest.spyOn(
-      displayErrorMessage,
-      "loginError"
-    );
+    const displayErrorMessageMock = jest.fn();
+
+    displayErrorMessage.mockImplementation(displayErrorMessageMock);
 
     await handleLogin(event);
 
@@ -94,7 +107,7 @@ describe("handleLogin", () => {
       "invalid-password"
     );
 
-    // Check if displayErrorMessage was called with the correct error message
+    // Check if displayErrorMessage was called with the correct arguments
     expect(displayErrorMessageMock).toHaveBeenCalledWith(
       "loginError",
       "Invalid credentials"
@@ -104,3 +117,11 @@ describe("handleLogin", () => {
     jest.restoreAllMocks();
   });
 });
+
+// Export the wrapper function
+module.exports = {
+  testEnvironment: "jest-environment-jsdom",
+  transform: {
+    "^.+\\.js$": "babel-jest",
+  },
+};

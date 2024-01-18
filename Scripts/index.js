@@ -58,7 +58,7 @@ function displaySuccessMessage(message) {
  * Handles the login process.
  * @param {Event} event - The submit event from the login form.
  */
-async function handleLogin(event) {
+export async function handleLogin(event) {
   event.preventDefault();
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;

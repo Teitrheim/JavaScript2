@@ -88,3 +88,11 @@ export function logout() {
   localStorage.removeItem("jwtToken"); // Clear the JWT from localStorage
   window.location.href = "../"; // Redirect to the login page or home page
 }
+
+export function redirectUser(path) {
+  // Implement the redirectUser function here or mock it in your tests
+}
+
+export function displayErrorMessage(key, message) {
+  // Implement the displayErrorMessage function here or mock it in your tests
+}
